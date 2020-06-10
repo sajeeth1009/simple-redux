@@ -100,7 +100,7 @@ const reset = () => ({ type: 'RESET' });
 /**************************/
 
 // Subscribe to updates
-let unsubscribe = store.subscribe(() => {
+var unsubscribe = store.subscribe(() => {
   setTotal(store.getState());
 });
 
