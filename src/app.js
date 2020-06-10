@@ -12,6 +12,10 @@ const reducer = (state = 0, action) => {
       return state + action.payload.value;
     case 'SUBTRACT':
       return state - action.payload.value;
+    case 'MULTIPLY':
+      return state * action.payload.value;
+    case 'DIVIDE':
+      return state / action.payload.value;
     case 'RESET':
       return 0;
     default:
@@ -63,6 +67,30 @@ const subtract = () => ({
 });
 
 /**
+ * Action Creator. Returns an action of the type 'MULTIPLY'
+ */
+const multiply = () => ({
+  type: 'MULTIPLY',
+  payload: { value: getValue() },
+});
+
+/**
+ * Action Creator. Returns an action of the type 'DIVIDE'
+ */
+const divide = () => ({
+  type: 'DIVIDE',
+  payload: { value: getValue() },
+});
+
+/**
+ * Action Creator. Returns an action of the type 'DIVIDE'
+ */
+const nothing = () => ({
+  type: 'NOTHING',
+  payload: { value: getValue() },
+});
+
+/**
  * Action Creator. Returns an action of the type 'RESET'
  */
 const reset = () => ({ type: 'RESET' });
@@ -72,7 +100,7 @@ const reset = () => ({ type: 'RESET' });
 /**************************/
 
 // Subscribe to updates
-store.subscribe(() => {
+let unsubscribe = store.subscribe(() => {
   setTotal(store.getState());
 });
 
@@ -84,6 +112,33 @@ document.getElementById('add-btn').addEventListener('click', () => {
 // Handle subtract button click
 document.getElementById('subtract-btn').addEventListener('click', () => {
   store.dispatch(subtract());
+});
+
+// Handle multiply button click
+document.getElementById('multiply-btn').addEventListener('click', () => {
+  store.dispatch(multiply());
+});
+
+// Handle divide button click
+document.getElementById('divide-btn').addEventListener('click', () => {
+  store.dispatch(divide());
+});
+
+// Handle nothing button click
+document.getElementById('nothing-btn').addEventListener('click', () => {
+  store.dispatch(nothing());
+});
+
+// Handle unsubscribe button click
+document.getElementById('unsubscribe-btn').addEventListener('click', () => {
+  unsubscribe();
+});
+
+// Handle resubscribe button click
+document.getElementById('resubscribe-btn').addEventListener('click', () => {
+  unsubscribe = store.subscribe(() => {
+    setTotal(store.getState());
+  });
 });
 
 // Handle reset button click
